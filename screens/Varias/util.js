@@ -1,3 +1,4 @@
+const urlG = "http://localhost/back-end/services/getUsers.php"
 const urlP = "http://localhost/back-end/services/users.php"
 
 
@@ -87,12 +88,12 @@ async function PostData(URL, datas) {
     }
 }
 
+// Ejemplos de uso:
 // PostData(urlP,{
 //     email: "perras1231@gmail.com",
 //     password: "perras1231##"
 // })
 
-// Ejemplos de uso:
 // async function fetchUsers() {
 //     try {
 //         const users = await GetData(urlP, {
