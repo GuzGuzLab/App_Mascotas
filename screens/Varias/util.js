@@ -1,5 +1,53 @@
 const urlP = "http://localhost/back-end/services/users.php"
 
+
+async function GetData(URL) {
+    try {
+        const response = await fetch(URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        // Manejar diferentes códigos de estado
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            const error = new Error(errorData.message || `HTTP error! status: ${response.status}`);
+            error.status = response.status;
+            error.data = errorData;
+            throw error;
+        }
+
+        // Parsear la respuesta como JSON
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error("Error en GetData:", error);
+        
+        // Manejo de errores específicos
+        if (error.status) {
+            switch (error.status) {
+                case 404:
+                    console.log("Recurso no encontrado");
+                    break;
+                case 401:
+                    console.log("No autorizado");
+                    break;
+                case 500:
+                    throw new Error('Error del servidor');
+                default:
+                    console.log(`Error HTTP ${error.status}`);
+            }
+        } else {
+            throw new Error('Error de conexión o red');
+        }
+        
+        throw error;
+    }
+}
+
 async function PostData(URL, datas) {
     try {
         const response = await fetch(URL, {
@@ -43,3 +91,18 @@ async function PostData(URL, datas) {
 //     email: "perras1231@gmail.com",
 //     password: "perras1231##"
 // })
+
+// Ejemplos de uso:
+// async function fetchUsers() {
+//     try {
+//         const users = await GetData(urlP, {
+//             page: 1,
+//             limit: 10
+//         });
+//         console.log("Usuarios obtenidos:", users);
+//         return users;
+//     } catch (error) {
+//         console.error("Error al obtener usuarios:", error);
+//         // Manejo adicional del error aquí
+//     }
+// }
