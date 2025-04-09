@@ -1,5 +1,9 @@
+// Librarys 
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Alert } from "react-native";
+
+// Imports 
+import { PostData } from './Varios/util'
 
 export default function RegisterScreen({ navigation }) {
     const [email, setEmail] = useState("");
@@ -29,18 +33,22 @@ export default function RegisterScreen({ navigation }) {
             return;
         }
 
-        // Crear el objeto de datos del usuario
-        const userData = {
-            email: email,
-            password: password
-        };
-
-        // Hacer el fetch a la API para registrar el usuario
-        console.log(email,password)
-        console.log(userData)
-        console.log(JSON.stringify(userData))
-        
+        sendData({email: email,password: password})
     };
+
+    // Function send data to database 
+    const sendData = async (data) => {
+        // Vars 
+        const url = "http://localhost/back-end/services/users.php"
+
+        try {
+            await PostData(url,data)
+            alert("Registro exitoso");
+            navigation.navigate("Home")
+        } catch (err){
+            console.log(err)
+        }
+    }
 
     return (
         <KeyboardAvoidingView 
