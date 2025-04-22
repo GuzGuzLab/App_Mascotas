@@ -7,7 +7,7 @@ export default function Home() {
 
     const menuItems = [
         { title: "Servicios", screen: "Services", icon: "🩺", color: "#4CAF50" },
-        { title: "Nuestros Pacientes", screen: "Pets", icon: "🐶", color: "#FF9800" },
+        { title: "Nuestros Pacientes", screen: "MascotasList", icon: "🐶", color: "#FF9800" },
         { title: "Sobre Nosotros", screen: "About", icon: "🏥", color: "#2196F3" },
         { title: "Contacto", screen: "Contact", icon: "📞", color: "#9C27B0" },
     ];
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         backgroundColor: '#f5f5f5',
         padding: 20,
+        height: 100,
     },
     header: {
         alignItems: 'center',

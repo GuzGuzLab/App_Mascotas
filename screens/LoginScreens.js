@@ -1,77 +1,90 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Platform } from "react-native";
+// Librarys 
+import React, { useState } from "react"
+import { Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from "react-native"
 
+// Imports
+import { usuarioService } from '../services/users'
+
+// Component
 export default function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isFocused, setIsFocused] = useState({ email: false, password: false });
+    // Vars 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [isFocused, setIsFocused] = useState({ email: false, password: false })
 
-    const handleLogin = () => {
-        if (email && password) {
-            navigation.replace("Home");
-        } else {
-            alert("Por favor, completa todos los campos");
+    // Functions 
+    // manejo de inicio de sesion 
+    const handleLogin = async () => {
+        try {
+            if (email && password) {
+                const login = await usuarioService.login(email,password)
+                if (login.success) {
+                    localStorage.setItem('doc', login.documento)
+                    navigation.replace("Home")
+                }
+            } else {
+                alert("Por favor, completa todos los campos")
+            }
+        } catch (error) {
+            console.error(error)
         }
-    };
+    }
 
     return (
         <KeyboardAvoidingView 
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
         >
-           
-                
-                <Text style={styles.title}>Bienvenido</Text>
-                <Text style={styles.subtitle}>Ingresa a tu cuenta</Text>
-                
-                {/* Inputs con efectos de focus */}
-                <TextInput
-                    style={[
-                        styles.input, 
-                        isFocused.email && styles.inputFocused
-                    ]}
-                    placeholder="Correo electrónico"
-                    placeholderTextColor="#999"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                    onFocus={() => setIsFocused({...isFocused, email: true})}
-                    onBlur={() => setIsFocused({...isFocused, email: false})}
-                />
-                
-                <TextInput
-                    style={[
-                        styles.input, 
-                        isFocused.password && styles.inputFocused
-                    ]}
-                    placeholder="Contraseña"
-                    placeholderTextColor="#999"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                    onFocus={() => setIsFocused({...isFocused, password: true})}
-                    onBlur={() => setIsFocused({...isFocused, password: false})}
-                />
-                
-                {/* Botón personalizado */}
-                <TouchableOpacity 
-                    style={styles.loginButton}
-                    onPress={handleLogin}
-                    activeOpacity={0.8}
-                >
-                    <Text style={styles.buttonText}>Ingresar</Text>
-                </TouchableOpacity>
+            <Text style={styles.title}>Bienvenido</Text>
+            <Text style={styles.subtitle}>Ingresa a tu cuenta</Text>
+            
+            {/* Inputs con efectos de focus */}
+            <TextInput
+                style={[
+                    styles.input, 
+                    isFocused.email && styles.inputFocused
+                ]}
+                placeholder="Correo electrónico"
+                placeholderTextColor="#999"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                onFocus={() => setIsFocused({...isFocused, email: true})}
+                onBlur={() => setIsFocused({...isFocused, email: false})}
+            />
+            
+            <TextInput
+                style={[
+                    styles.input, 
+                    isFocused.password && styles.inputFocused
+                ]}
+                placeholder="Contraseña"
+                placeholderTextColor="#999"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                onFocus={() => setIsFocused({...isFocused, password: true})}
+                onBlur={() => setIsFocused({...isFocused, password: false})}
+            />
+            
+            {/* Botón personalizado */}
+            <TouchableOpacity 
+                style={styles.loginButton}
+                onPress={handleLogin}
+                activeOpacity={0.8}
+            >
+                <Text style={styles.buttonText}>Ingresar</Text>
+            </TouchableOpacity>
 
-                <TouchableOpacity 
-                    onPress={() => navigation.navigate("Registrar")}
-                    activeOpacity={0.6}
->
-                 <Text style={styles.link}> ¿No tienes cuenta? <Text style={styles.linkBold}>Regístrate</Text>
-             </Text>
+            <TouchableOpacity 
+                    onPress={handleLogin}
+                    activeOpacity={0.6}>
+                <Text style={styles.link}> ¿No tienes cuenta? <Text style={styles.linkBold}>Regístrate</Text>
+                </Text>
             </TouchableOpacity>
 
         </KeyboardAvoidingView>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -153,4 +166,4 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#3498db',
     },
-});
+})
