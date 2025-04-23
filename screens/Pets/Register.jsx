@@ -1,12 +1,12 @@
 // Librarys
 import React, { useState } from 'react'
 import {  View, ScrollView, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native'
-
+// import DateTimePicker from '@react-native-community/datetimepicker'
 // Imports 
 import { mascotaService } from '../../services/pets'
 
 // Component 
-    const CrearMascotaScreen = ({ navigation }) => {
+    const CrearMascotaScreen = ({ propietario,navigation }) => {
         // Vars 
     const [form, setForm] = useState({
         nombre: '',
@@ -17,7 +17,6 @@ import { mascotaService } from '../../services/pets'
         fecha_nac: new Date(),
         peso: '',
         genero: 'Macho',
-        propietario: localStorage.getItem("doc")
     })
     const [showDatePicker, setShowDatePicker] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -110,23 +109,22 @@ import { mascotaService } from '../../services/pets'
                 onChangeText={(text) => handleChange('alimento', text)}
             />
 
-            <Text style={styles.label}>Fecha de Nacimiento</Text>
             <TouchableOpacity 
                 style={styles.input} 
                 onPress={() => setShowDatePicker(true)}
             >
                 <Text>{form.fecha_nac.toLocaleDateString()}</Text>
             </TouchableOpacity>
-            
-            {showDatePicker && (
-                <DateTimePicker
+
+            {/* {showDatePicker && (
+            <DateTimePicker
                 value={form.fecha_nac}
                 mode="date"
                 display="default"
                 onChange={handleDateChange}
                 maximumDate={new Date()}
-                />
-            )}
+            />
+            )} */}
 
             <Text style={styles.label}>Peso (kg)*</Text>
             <TextInput

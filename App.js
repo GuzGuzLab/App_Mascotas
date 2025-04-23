@@ -9,6 +9,7 @@ import Registrar from './screens/RegistrarScreens'
 import EditarMascotaScreen from './screens/Pets/PetEdit';
 import CrearMascotaScreen from './screens/Pets/Register';
 import MascotasScreen from './screens/Pets';
+import { useState } from 'react';
 
 
 // Component 

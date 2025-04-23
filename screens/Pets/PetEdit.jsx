@@ -1,7 +1,7 @@
 // screens/EditarMascotaScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+// import DateTimePicker from '@react-native-community/datetimepicker';
 import { mascotaService } from '../../services/pets';
 
 const EditarMascotaScreen = ({ route, navigation }) => {

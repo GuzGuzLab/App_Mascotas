@@ -19,7 +19,6 @@ export default function LoginScreen({ navigation }) {
             if (email && password) {
                 const login = await usuarioService.login(email,password)
                 if (login.success) {
-                    localStorage.setItem('doc', login.documento)
                     navigation.replace("Home")
                 }
             } else {

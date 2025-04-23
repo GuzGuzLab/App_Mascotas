@@ -17,5 +17,4 @@ export default function Inicio() {
 }
 
 const styles = StyleSheet.create ({
-    
 })

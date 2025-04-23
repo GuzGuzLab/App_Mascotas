@@ -10,7 +10,7 @@ import MascotaItem from './Pets/MascotasItem'
 const MascotasScreen = ({ navigation }) => {
   const [mascotas, setMascotas] = useState([])
   const [loading, setLoading] = useState(true)
-  const propietarioId = localStorage.getItem('doc') || null
+  const propietarioId = null
 
     // Effects 
     useEffect(() => {

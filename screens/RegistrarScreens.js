@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker'
+// import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { usuarioService } from '../services/users'
 
 const RegistroUsuarioScreen = ({ navigation }) => {
@@ -146,16 +146,18 @@ const RegistroUsuarioScreen = ({ navigation }) => {
       >
         <Text>{form.fecha_nacimiento.toLocaleDateString()}</Text>
       </TouchableOpacity>
-      
-      {showDatePicker && (
-        <DateTimePicker
-          value={form.fecha_nacimiento}
-          mode="date"
-          display="default"
-          onChange={handleDateChange}
-          maximumDate={new Date()}
-        />
-      )}
+
+      {/* <DateTimePickerModal
+        isVisible={showDatePicker}
+        mode="date"
+        onConfirm={(date) => {
+          setShowDatePicker(false)
+          setForm({ ...form, fecha_nacimiento: date })
+        }}
+        onCancel={() => setShowDatePicker(false)}
+        maximumDate={new Date()}
+      /> */}
+
 
       {/* Tipo de Documento */}
       <Text style={styles.label}>Tipo de Documento*</Text>
